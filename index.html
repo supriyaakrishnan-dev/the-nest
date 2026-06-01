@@ -1,69 +1,181 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Nest</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏡 The Nest</title>
 
-  <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css">
+
 </head>
-
 <body>
 
-<div id="login-screen">
+<!-- LOGIN -->
 
-  <h1>🏡 The Nest</h1>
+<div id="login-screen" class="screen active">
 
-  <p>Welcome Home</p>
+  <div class="login-card">
+
+```
+<h1>🏡 The Nest</h1>
+
+<p>Welcome Home</p>
 
 <input
-type="password"
-id="pin"
-placeholder="Enter PIN"
-
+  type="password"
+  id="pin"
+  placeholder="Enter Family PIN"
 >
 
-  <button onclick="login()">
-    Unlock
-  </button>
+<button onclick="login()">
+  Unlock
+</button>
+```
+
+  </div>
 
 </div>
 
+<!-- APP -->
+
 <div id="app" style="display:none;">
 
-  <header>
-    <h1>🏡 The Nest</h1>
-  </header>
+<header>
 
-  <section class="card">
+  <h1>🏡 The Nest</h1>
+
+</header>
+
+<!-- MORNING BRIEFING -->
+
+<section class="card">
+
+<h2>🌅 Morning Briefing</h2>
+
+<div class="stats">
+
+<div class="stat">
+🔴 Overdue
+<span id="overdue-count">0</span>
+</div>
+
+<div class="stat">
+🟠 Due Today
+<span id="today-count">0</span>
+</div>
+
+<div class="stat">
+🛒 Shopping
+<span id="shopping-count">0</span>
+</div>
+
+<div class="stat">
+📅 Events
+<span id="event-count">0</span>
+</div>
+
+</div>
+
+</section>
+
+<!-- HEALTH -->
+
+<section class="card">
 
 <h2>🏠 Household Health</h2>
 
 <div id="health-score">
-  Loading...
+Loading...
 </div>
 
-  </section>
+</section>
 
-  <section class="card">
+<!-- MAID -->
+
+<section class="card">
 
 <h2>🧹 Tell Maid Today</h2>
 
-<ul id="maid-tasks"></ul>
+<ul id="maid-tasks">
 
+</ul>
 
-  </section>
+</section>
 
-  <section class="card">
+<!-- TASKS -->
 
+<section class="card">
 
 <h2>✅ Tasks</h2>
 
-<ul id="tasks-list"></ul>
+<ul id="tasks-list">
 
+</ul>
 
-  </section>
+</section>
+
+<!-- BRAIN DUMP -->
+
+<section class="card">
+
+<h2>🧠 Brain Dump</h2>
+
+<input
+id="brain-input"
+placeholder="What's on your mind?"
+
+>
+
+<button onclick="captureBrainDump()">
+ Save
+</button>
+
+</section>
+
+<!-- GROCERY -->
+
+<section class="card">
+
+<h2>🛒 Grocery List</h2>
+
+<ul id="grocery-list"></ul>
+
+</section>
+
+<!-- MEALS -->
+
+<section class="card">
+
+<h2>🍽️ Meal Planner</h2>
+
+<div id="meal-plan">
+
+No meals planned
+
+</div>
+
+</section>
+
+<!-- CALENDAR -->
+
+<section class="card">
+
+<h2>📅 Upcoming Events</h2>
+
+<ul id="calendar-list"></ul>
+
+</section>
+
+<!-- MAINTENANCE -->
+
+<section class="card">
+
+<h2>🔧 Maintenance</h2>
+
+<ul id="maintenance-list"></ul>
+
+</section>
 
 </div>
 
