@@ -147,7 +147,7 @@ async function loadMaidTasks() {
 
 try {
 
-```
+
 const response =
   await fetch(
     API_URL + "?action=maid"
@@ -178,13 +178,12 @@ data.maidTasks
     list.appendChild(li);
 
   });
-```
+
 
 } catch (error) {
 
-```
+
 console.error(error);
-```
 
 }
 
@@ -205,7 +204,7 @@ if (!list) return;
 
 try {
 
-```
+
 const response =
   await fetch(
     API_URL + "?action=grocery"
@@ -232,13 +231,13 @@ data.grocery
     list.appendChild(li);
 
   });
-```
+
 
 } catch (error) {
 
-```
+
 console.error(error);
-```
+
 
 }
 
@@ -259,7 +258,7 @@ if (!list) return;
 
 try {
 
-```
+
 const response =
   await fetch(
     API_URL + "?action=calendar"
@@ -283,13 +282,13 @@ data.events
     list.appendChild(li);
 
   });
-```
+
 
 } catch (error) {
 
-```
+
 console.error(error);
-```
+
 
 }
 
@@ -310,7 +309,7 @@ if (!list) return;
 
 try {
 
-```
+
 const response =
   await fetch(
     API_URL + "?action=maintenance"
@@ -334,13 +333,13 @@ data.maintenance
     list.appendChild(li);
 
   });
-```
+
 
 } catch (error) {
 
-```
+
 console.error(error);
-```
+
 
 }
 
@@ -359,19 +358,18 @@ document.getElementById(
 
 if (!note) {
 
-```
+
 alert(
   "Please enter a note"
 );
 
 return;
-```
 
 }
 
 try {
 
-```
+
 const response =
   await fetch(API_URL, {
 
