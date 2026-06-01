@@ -8,7 +8,6 @@ document.getElementById("pin").value;
 
 if(pin === "2026"){
 
-```
 document.getElementById(
   "login-screen"
 ).style.display = "none";
@@ -20,7 +19,6 @@ document.getElementById(
 loadHealth();
 loadMaidTasks();
 loadTasks();
-```
 
 }
 else{
@@ -70,7 +68,6 @@ data.maidTasks
   list.appendChild(li);
 
 });
-```
 
 }
 
@@ -93,7 +90,6 @@ data.tasks
 .slice(1)
 .forEach(task => {
 
-```
   const li =
     document.createElement("li");
 
