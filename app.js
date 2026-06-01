@@ -1,3 +1,5 @@
+alert("APP JS LOADED");
+
 const API_URL =
 "https://script.google.com/macros/s/AKfycbw4WNWBMzCa61cBp0cHgfoiT7beFl8NEr3XUB1DhFKQ0arsSFy2q4PNT21BhAZrHoQXoA/exec";
 
