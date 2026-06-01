@@ -1,12 +1,13 @@
 const API_URL =
 "https://script.google.com/macros/s/AKfycbw4WNWBMzCa61cBp0cHgfoiT7beFl8NEr3XUB1DhFKQ0arsSFy2q4PNT21BhAZrHoQXoA/exec";
 
-function login(){
+function login() {
 
 const pin =
 document.getElementById("pin").value;
 
-if(pin === "2026"){
+if (pin === "2026") {
+
 
 document.getElementById(
   "login-screen"
@@ -20,85 +21,124 @@ loadHealth();
 loadMaidTasks();
 loadTasks();
 
-}
-else{
+
+} else {
+
 alert("Incorrect PIN");
+
 }
 }
 
-async function loadHealth(){
+async function loadHealth() {
+
+try {
+
 
 const response =
-await fetch(API_URL + "?action=health");
+  await fetch(API_URL + "?action=health");
 
 const data =
-await response.json();
+  await response.json();
 
 document.getElementById(
-"health-score"
+  "health-score"
 ).innerText =
-data.healthScore + "%";
+  data.healthScore + "%";
+
+} catch (error) {
+
+console.error(error);
+
+document.getElementById(
+  "health-score"
+).innerText =
+  "Unable to load";
+
 }
 
-async function loadMaidTasks(){
+}
+
+async function loadMaidTasks() {
+
+try {
+
 
 const response =
-await fetch(API_URL + "?action=maid");
+  await fetch(API_URL + "?action=maid");
 
 const data =
-await response.json();
+  await response.json();
 
 const list =
-document.getElementById(
-"maid-tasks"
-);
+  document.getElementById(
+    "maid-tasks"
+  );
 
 list.innerHTML = "";
 
 data.maidTasks
-.slice(1)
-.forEach(task => {
+  .slice(1)
+  .forEach(task => {
 
-```
-  const li =
-    document.createElement("li");
+    const li =
+      document.createElement("li");
 
-  li.innerText = task[1];
+    li.innerText =
+      task[1];
 
-  list.appendChild(li);
+    list.appendChild(li);
 
-});
+  });
+
+
+} catch (error) {
+
+
+console.error(error);
 
 }
 
-async function loadTasks(){
+}
+
+async function loadTasks() {
+
+try {
+
 
 const response =
-await fetch(API_URL + "?action=tasks");
+  await fetch(API_URL + "?action=tasks");
 
 const data =
-await response.json();
+  await response.json();
 
 const list =
-document.getElementById(
-"tasks-list"
-);
+  document.getElementById(
+    "tasks-list"
+  );
 
 list.innerHTML = "";
 
 data.tasks
-.slice(1)
-.forEach(task => {
+  .slice(1)
+  .forEach(task => {
 
-  const li =
-    document.createElement("li");
+    const li =
+      document.createElement("li");
 
-  li.innerText =
-    task[1] + " • " + task[2];
+    li.innerText =
+      task[1] + " • " + task[2];
 
-  list.appendChild(li);
+    list.appendChild(li);
 
-});
-```
+  });
+
+
+} catch (error) {
+
+
+console.error(error);
+
+
+}
 
 }
