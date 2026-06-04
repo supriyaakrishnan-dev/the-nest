@@ -1,26 +1,43 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
+
 <title>🏡 The Nest</title>
 
-<link rel="stylesheet" href="styles.css">
+<link
+  rel="stylesheet"
+  href="styles.css"
+>
 
 </head>
+
 <body>
 
 <!-- LOGIN -->
 
-<div id="login-screen" class="screen active">
+<div
+  id="login-screen"
+  class="screen active"
+>
 
   <div class="login-card">
 
-
+ 
 <h1>🏡 The Nest</h1>
 
-<p>Welcome Home</p>
+<p>
+  Welcome Home
+</p>
 
 <input
   type="password"
@@ -28,10 +45,12 @@
   placeholder="Enter Family PIN"
 >
 
-<button onclick="login()">
+<button
+  onclick="login()"
+>
   Unlock
 </button>
-
+ 
 
   </div>
 
@@ -39,11 +58,16 @@
 
 <!-- APP -->
 
-<div id="app" style="display:none;">
+<div
+  id="app"
+  style="display:none;"
+>
 
 <header>
 
-  <h1>🏡 The Nest</h1>
+  <h1>
+    🏡 The Nest
+  </h1>
 
 </header>
 
@@ -51,28 +75,34 @@
 
 <section class="card">
 
-<h2>🌅 Morning Briefing</h2>
+<h2>
+🌅 Morning Briefing
+</h2>
 
 <div class="stats">
 
 <div class="stat">
 🔴 Overdue
-<span id="overdue-count">0</span>
+<br>
+0
 </div>
 
 <div class="stat">
 🟠 Due Today
-<span id="today-count">0</span>
+<br>
+0
 </div>
 
 <div class="stat">
 🛒 Shopping
-<span id="shopping-count">0</span>
+<br>
+0
 </div>
 
 <div class="stat">
 📅 Events
-<span id="event-count">0</span>
+<br>
+0
 </div>
 
 </div>
@@ -83,10 +113,14 @@
 
 <section class="card">
 
-<h2>🏠 Household Health</h2>
+<h2>
+🏠 Household Health
+</h2>
 
 <div id="health-score">
+
 Loading...
+
 </div>
 
 </section>
@@ -95,7 +129,9 @@ Loading...
 
 <section class="card">
 
-<h2>🧹 Tell Maid Today</h2>
+<h2>
+🧹 Tell Maid Today
+</h2>
 
 <ul id="maid-tasks">
 
@@ -107,7 +143,9 @@ Loading...
 
 <section class="card">
 
-<h2>✅ Tasks</h2>
+<h2>
+✅ Tasks
+</h2>
 
 <ul id="tasks-list">
 
@@ -119,7 +157,9 @@ Loading...
 
 <section class="card">
 
-<h2>🧠 Brain Dump</h2>
+<h2>
+🧠 Brain Dump
+</h2>
 
 <input
 id="brain-input"
@@ -127,9 +167,14 @@ placeholder="What's on your mind?"
 
 >
 
-<button onclick="captureBrainDump()">
- Save
-</button>
+<br><br>
+
+<button
+onclick="captureBrainDump()"
+
+>
+
+Save </button>
 
 </section>
 
@@ -137,23 +182,30 @@ placeholder="What's on your mind?"
 
 <section class="card">
 
-<h2>🛒 Grocery List</h2>
+<h2>
+🛒 Grocery List
+</h2>
 
-<ul id="grocery-list"></ul>
+<input
+id="grocery-item"
+placeholder="Add grocery item"
 
-</section>
+>
 
-<!-- MEALS -->
+<br><br>
 
-<section class="card">
+<button
+onclick="addGrocery()"
 
-<h2>🍽️ Meal Planner</h2>
+>
 
-<div id="meal-plan">
+Add Item </button>
 
-No meals planned
+<br><br>
 
-</div>
+<ul id="grocery-list">
+
+</ul>
 
 </section>
 
@@ -161,9 +213,54 @@ No meals planned
 
 <section class="card">
 
-<h2>📅 Upcoming Events</h2>
+<h2>
+📅 Family Calendar
+</h2>
 
-<ul id="calendar-list"></ul>
+<input
+type="date"
+id="event-date"
+
+>
+
+<br><br>
+
+<input
+id="event-name"
+placeholder="Event name"
+
+>
+
+<br><br>
+
+<button
+onclick="addEvent()"
+
+>
+
+Add Event </button>
+
+<br><br>
+
+<ul id="calendar-list">
+
+</ul>
+
+</section>
+
+<!-- MEAL PLAN -->
+
+<section class="card">
+
+<h2>
+🍽️ Meal Plan
+</h2>
+
+<div id="meal-plan">
+
+Coming Soon
+
+</div>
 
 </section>
 
@@ -171,9 +268,29 @@ No meals planned
 
 <section class="card">
 
-<h2>🔧 Maintenance</h2>
+<h2>
+🔧 Maintenance
+</h2>
 
-<ul id="maintenance-list"></ul>
+<ul id="maintenance-list">
+
+</ul>
+
+</section>
+
+<!-- CONTACTS -->
+
+<section class="card">
+
+<h2>
+☎️ Emergency Contacts
+</h2>
+
+<div id="contacts">
+
+Stored in Google Sheet
+
+</div>
 
 </section>
 
@@ -182,4 +299,5 @@ No meals planned
 <script src="app.js"></script>
 
 </body>
+
 </html>
