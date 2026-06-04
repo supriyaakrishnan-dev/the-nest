@@ -1,46 +1,40 @@
-alert("APP JS LOADED");
-
 const API_URL =
 "https://script.google.com/macros/s/AKfycbw4WNWBMzCa61cBp0cHgfoiT7beFl8NEr3XUB1DhFKQ0arsSFy2q4PNT21BhAZrHoQXoA/exec";
 
 const PIN = "2026";
 
-/* ---------------------------
+/* =========================
 LOGIN
----------------------------- */
+========================= */
 
 function login() {
 
-const enteredPin =
+const pin =
 document.getElementById("pin").value;
 
-if (enteredPin === PIN) {
+if(pin !== PIN) {
 
+alert("Incorrect PIN");
+
+return;
+
+}
 
 document.getElementById(
-  "login-screen"
+"login-screen"
 ).style.display = "none";
 
 document.getElementById(
-  "app"
+"app"
 ).style.display = "block";
 
 initializeDashboard();
 
-
-} else {
-
-
-alert("Incorrect PIN");
-
-
 }
 
-}
-
-/* ---------------------------
+/* =========================
 DASHBOARD
----------------------------- */
+========================= */
 
 async function initializeDashboard() {
 
@@ -53,303 +47,415 @@ await loadMaintenance();
 
 }
 
-/* ---------------------------
+/* =========================
 HEALTH
----------------------------- */
+========================= */
 
 async function loadHealth() {
 
-try {
-
-
 const response =
-  await fetch(
-    API_URL + "?action=health"
-  );
+await fetch(
+API_URL +
+"?action=health"
+);
 
 const data =
-  await response.json();
+await response.json();
 
+const el =
 document.getElementById(
-  "health-score"
-).innerHTML =
+"health-score"
+);
+
+if(el){
+
+
+el.innerHTML =
   "<div class='health-score'>" +
   data.healthScore +
   "%</div>";
-
-
-} catch (error) {
-
-
-console.error(error);
-
+ 
 
 }
 
 }
 
-/* ---------------------------
+/* =========================
 TASKS
----------------------------- */
+========================= */
 
 async function loadTasks() {
 
-try {
-
-
 const response =
-  await fetch(
-    API_URL + "?action=tasks"
-  );
+await fetch(
+API_URL +
+"?action=tasks"
+);
 
 const data =
-  await response.json();
+await response.json();
 
 const list =
-  document.getElementById(
-    "tasks-list"
-  );
+document.getElementById(
+"tasks-list"
+);
 
-if (!list) return;
+if(!list) return;
 
 list.innerHTML = "";
 
 data.tasks
-  .slice(1)
-  .forEach(task => {
+.slice(1)
+.forEach(task => {
 
-    const li =
-      document.createElement("li");
+ 
+  const li =
+    document.createElement("li");
 
-    li.innerText =
-      task[1] +
-      " • " +
-      task[2];
+  li.innerHTML =
 
-    list.appendChild(li);
+  "<label>" +
+  "<input type='checkbox' " +
+  "onchange=\"completeTask('" +
+  task[0] +
+  "')\">" +
+  task[1] +
+  " (" +
+  task[2] +
+  ")" +
+  "</label>";
 
-  });
+  list.appendChild(li);
 
-
-} catch (error) {
-
-
-console.error(error);
-
+});
+ 
 
 }
 
+async function completeTask(taskId){
+
+await fetch(API_URL,{
+
+ 
+method:"POST",
+
+headers:{
+  "Content-Type":
+    "application/json"
+},
+
+body:JSON.stringify({
+
+  action:
+    "completeTask",
+
+  taskId:
+    taskId
+
+})
+ 
+
+});
+
+alert("Task completed");
+
 }
 
-/* ---------------------------
+/* =========================
 MAID TASKS
----------------------------- */
+========================= */
 
 async function loadMaidTasks() {
 
-try {
-
-
 const response =
-  await fetch(
-    API_URL + "?action=maid"
-  );
+await fetch(
+API_URL +
+"?action=maid"
+);
 
 const data =
-  await response.json();
+await response.json();
 
 const list =
-  document.getElementById(
-    "maid-tasks"
-  );
+document.getElementById(
+"maid-tasks"
+);
 
-if (!list) return;
+if(!list) return;
 
 list.innerHTML = "";
 
 data.maidTasks
-  .slice(1)
-  .forEach(task => {
+.slice(1)
+.forEach(task => {
 
-    const li =
-      document.createElement("li");
+ 
+  const li =
+    document.createElement("li");
 
-    li.innerText =
-      task[1];
+  li.innerText =
+    task[1];
 
-    list.appendChild(li);
+  list.appendChild(li);
 
-  });
-
-
-} catch (error) {
-
-
-console.error(error);
+});
+ 
 
 }
 
-}
-
-/* ---------------------------
+/* =========================
 GROCERY
----------------------------- */
+========================= */
 
 async function loadGrocery() {
+
+const response =
+await fetch(
+API_URL +
+"?action=grocery"
+);
+
+const data =
+await response.json();
 
 const list =
 document.getElementById(
 "grocery-list"
 );
 
-if (!list) return;
-
-try {
-
-
-const response =
-  await fetch(
-    API_URL + "?action=grocery"
-  );
-
-const data =
-  await response.json();
+if(!list) return;
 
 list.innerHTML = "";
 
 data.grocery
-  .slice(1)
-  .forEach(item => {
+.slice(1)
+.forEach(item => {
 
-    const li =
-      document.createElement("li");
+ 
+  const li =
+    document.createElement("li");
 
-    li.innerText =
-      item[0] +
-      " (" +
-      item[2] +
-      ")";
+  li.innerHTML =
 
-    list.appendChild(li);
+  item[0] +
+  " (" +
+  item[2] +
+  ") " +
 
-  });
+  "<button onclick=\"purchaseItem('" +
+  item[0] +
+  "')\">✓</button>";
 
+  list.appendChild(li);
 
-} catch (error) {
-
-
-console.error(error);
-
-
-}
+});
+ 
 
 }
 
-/* ---------------------------
+async function addGrocery(){
+
+const item =
+document.getElementById(
+"grocery-item"
+).value;
+
+if(!item) return;
+
+await fetch(API_URL,{
+
+ 
+method:"POST",
+
+headers:{
+  "Content-Type":
+  "application/json"
+},
+
+body:JSON.stringify({
+
+  action:"addGrocery",
+
+  item:item,
+
+  qty:1,
+
+  category:"General",
+
+  priority:"Medium"
+
+})
+ 
+
+});
+
+loadGrocery();
+
+}
+
+async function purchaseItem(item){
+
+await fetch(API_URL,{
+
+ 
+method:"POST",
+
+headers:{
+  "Content-Type":
+  "application/json"
+},
+
+body:JSON.stringify({
+
+  action:
+    "purchaseGrocery",
+
+  item:
+    item
+
+})
+ 
+
+});
+
+loadGrocery();
+
+}
+
+/* =========================
 CALENDAR
----------------------------- */
+========================= */
 
 async function loadCalendar() {
+
+const response =
+await fetch(
+API_URL +
+"?action=calendar"
+);
+
+const data =
+await response.json();
 
 const list =
 document.getElementById(
 "calendar-list"
 );
 
-if (!list) return;
-
-try {
-
-
-const response =
-  await fetch(
-    API_URL + "?action=calendar"
-  );
-
-const data =
-  await response.json();
+if(!list) return;
 
 list.innerHTML = "";
 
 data.events
-  .slice(1)
-  .forEach(event => {
+.slice(1)
+.forEach(event => {
 
-    const li =
-      document.createElement("li");
+ 
+  const li =
+    document.createElement("li");
 
-    li.innerText =
-      event[1];
+  li.innerText =
+    event[0] +
+    " - " +
+    event[1];
 
-    list.appendChild(li);
+  list.appendChild(li);
 
-  });
-
-
-} catch (error) {
-
-
-console.error(error);
-
+});
+ 
 
 }
 
+async function addEvent(){
+
+const date =
+document.getElementById(
+"event-date"
+).value;
+
+const event =
+document.getElementById(
+"event-name"
+).value;
+
+await fetch(API_URL,{
+
+ 
+method:"POST",
+
+headers:{
+  "Content-Type":
+  "application/json"
+},
+
+body:JSON.stringify({
+
+  action:
+    "addCalendarEvent",
+
+  date:
+    date,
+
+  event:
+    event,
+
+  type:
+    "Family"
+
+})
+ 
+
+});
+
+loadCalendar();
+
 }
 
-/* ---------------------------
+/* =========================
 MAINTENANCE
----------------------------- */
+========================= */
 
 async function loadMaintenance() {
+
+const response =
+await fetch(
+API_URL +
+"?action=maintenance"
+);
+
+const data =
+await response.json();
 
 const list =
 document.getElementById(
 "maintenance-list"
 );
 
-if (!list) return;
-
-try {
-
-
-const response =
-  await fetch(
-    API_URL + "?action=maintenance"
-  );
-
-const data =
-  await response.json();
+if(!list) return;
 
 list.innerHTML = "";
 
 data.maintenance
-  .slice(1)
-  .forEach(item => {
+.slice(1)
+.forEach(item => {
 
-    const li =
-      document.createElement("li");
+ 
+  const li =
+    document.createElement("li");
 
-    li.innerText =
-      item[0];
+  li.innerText =
+    item[0];
 
-    list.appendChild(li);
+  list.appendChild(li);
 
-  });
-
-
-} catch (error) {
-
-
-console.error(error);
-
+});
+ 
 
 }
 
-}
-
-/* ---------------------------
+/* =========================
 BRAIN DUMP
----------------------------- */
+========================= */
 
 async function captureBrainDump() {
 
@@ -358,69 +464,38 @@ document.getElementById(
 "brain-input"
 ).value;
 
-if (!note) {
+if(!note) return;
 
+await fetch(API_URL,{
 
-alert(
-  "Please enter a note"
-);
+ 
+method:"POST",
 
-return;
+headers:{
+  "Content-Type":
+  "application/json"
+},
 
-}
+body:JSON.stringify({
 
-try {
+  action:
+    "addBrainDump",
 
+  note:
+    note,
 
-const response =
-  await fetch(API_URL, {
+  category:
+    "Inbox"
 
-    method: "POST",
+})
+ 
 
-    headers: {
-      "Content-Type":
-        "application/json"
-    },
+});
 
-    body: JSON.stringify({
+alert("Saved");
 
-      action:
-        "addBrainDump",
-
-      note: note,
-
-      category:
-        "Inbox"
-
-    })
-
-  });
-
-const data =
-  await response.json();
-
-if (data.success) {
-
-  alert(
-    "Saved successfully"
-  );
-
-  document.getElementById(
-    "brain-input"
-  ).value = "";
-
-}
-
-} catch (error) {
-
-
-console.error(error);
-
-alert(
-  "Unable to save"
-);
-
-
-}
+document.getElementById(
+"brain-input"
+).value = "";
 
 }
